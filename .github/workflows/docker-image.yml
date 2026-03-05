@@ -35,10 +35,9 @@ jobs:
 
     - name: Push Docker image
       env:
-        DIR_APP: ${{ secrets.DIR_APP }}
         PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
-        docker --push $DOCKER_USER/$PROJECT_NAME:0.0.2 $DIR_APP/.
+        docker --push $DOCKER_USER/$PROJECT_NAME:0.0.2 
     
     
