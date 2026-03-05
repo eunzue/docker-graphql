@@ -32,6 +32,7 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
         docker build -t $DOCKER_USER/$PROJECT_NAME:0.0.2 $DIR_APP/.
+        docker build -t $DOCKER_USER/$PROJECT_NAME:latest $DIR_APP/.
 
     - name: Push Docker image
       env:
@@ -39,5 +40,6 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
         docker push $DOCKER_USER/$PROJECT_NAME:0.0.2 
+        docker push $DOCKER_USER/$PROJECT_NAME:latest 
     
     
