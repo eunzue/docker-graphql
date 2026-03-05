@@ -30,7 +30,11 @@ jobs:
         docker build -t eunzue/docker-graphql:0.0.2 .
 
     - name: Push Docker image
+      env:
+        DIR_APP: ${{ secrets.DIR_APP }}
+        PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
-        docker --push eunzue/docker-graphql:0.0.2 .
+        docker --push $DOCKER_USER/$PROJECT_NAME.0.2 $DIR_APP.
     
     
