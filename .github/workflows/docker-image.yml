@@ -29,26 +29,20 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        NEW_VERSION: ${{ steps.version.outputs.version }}
+        
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "Nueva versión: $NEW_VERSION !!!!"
 
-    # - name: Build Docker image
-    #   env:
-    #     DIR_APP: ${{ secrets.DIR_APP }}
-    #     PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-    #     DOCKER_USER: ${{ secrets.DOCKER_USER }}
-    #   run: |
-    #     docker build -t $DOCKER_USER/$PROJECT_NAME:0.0.2 $DIR_APP/.
-    #     docker build -t $DOCKER_USER/$PROJECT_NAME:latest $DIR_APP/.
-
-    # - name: Push Docker image
-    #   env:
-    #     PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-    #     DOCKER_USER: ${{ secrets.DOCKER_USER }}
-    #   run: |
-    #     docker push $DOCKER_USER/$PROJECT_NAME:0.0.2 
-    #     docker push $DOCKER_USER/$PROJECT_NAME:latest 
+    - name: Build Docker image & Push Docker image
+      env:
+        DIR_APP: ${{ secrets.DIR_APP }}
+        PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker build -t $DOCKER_USER/$PROJECT_NAME:$NEW_VERSION $DIR_APP/.
+        docker build -t $DOCKER_USER/$PROJECT_NAME:latest $DIR_APP/.
+        docker push $DOCKER_USER/$PROJECT_NAME:$NEW_VERSION 
+        docker push $DOCKER_USER/$PROJECT_NAME:latest 
     
     
